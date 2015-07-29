@@ -14,30 +14,21 @@ def parse_image(filename):
 
     (width, height) = rgb_img.size
 
-    # Scan down for first instance of black pixel. Find the shortest distance
-    # travelled.  Repeat the same for LTR.
-    min_point_x, max_point_x  = (width, height), (0, 0)
-
     is_black = lambda (r,g,b): r==0 and g==0 and b==0
 
+    min_point_x, max_point_x  = (width, height), (0, 0)
+
+    # Scan down for first instance of black pixel. Store max and mins.
     for x in range(width):
         for y in range(height):
             if is_black(rgb_values[x,y]):
                 if x < min_point_x[0]:
                     min_point_x = (x,y)
-
-    for x in range(width):
-        for y in range(height):
-            if is_black(rgb_values[x,y]):
                 if x > max_point_x[0]:
                     max_point_x = (x,y)
+                area += 1
 
     radius = (max_point_x[0] - min_point_x[0])/2
-
-    for x in range(width):
-        for y in range(height):
-            if is_black(rgb_values[x, y]):
-                area += 1
 
     return float(area)/float(radius*radius)
 
