@@ -1,7 +1,7 @@
 import Image
 import argparse
 
-def parse_image(filename):
+def calc_pi(filename):
     try:
         img = Image.open(filename)
     except:
@@ -37,4 +37,4 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-f','--filename', help='Input file name', required=True)
     args = parser.parse_args()
-    print parse_image(args.filename)
+    print calc_pi(args.filename)
