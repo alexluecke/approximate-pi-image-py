@@ -11,14 +11,15 @@ def parse_image(filename):
 
     rgb_img = img.convert('RGB')
     rgb_values = rgb_img.load()
-
     (width, height) = rgb_img.size
 
     is_black = lambda (r,g,b): r==0 and g==0 and b==0
 
+    # Circles are symmetric so I can use the y-diameter from the min and max
+    # of the x-coords to calculate the radii.
     min_point_x, max_point_x  = (width, height), (0, 0)
 
-    # Scan down for first instance of black pixel. Store max and mins.
+    # Scan down instances of black pixels to store max, mins, and area.
     for x in range(width):
         for y in range(height):
             if is_black(rgb_values[x,y]):
